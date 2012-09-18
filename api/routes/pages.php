@@ -20,7 +20,7 @@ class PagesApiRouteController extends ApiRouteController {
 	private function getPage($ID) {
 		$view = PermissionKey::getByHandle('view_page'); //Get the fancy new "view_page" permission
 		$page = Page::getByID($ID); //get the super complicated page object
-		if(!is_object($page) || $page->isError()) { //lets check if this page exists...
+		if(!is_object($page) || $page->isError() || $page->isSystemPage()) { //lets check if this page exists...
 			$this->setCode(404); //NOPE time to 404!
 			$this->respond(array('error' => 'Page Not Found'));
 		}
