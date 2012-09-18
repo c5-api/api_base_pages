@@ -6,7 +6,7 @@ class PagesApiRouteController extends ApiRouteController {
 		switch (API_REQUEST_METHOD) {
 			case 'GET':
 				if($ID && $ID > 0) {
-
+					return $this->getPage($ID);
 				} else {
 					return $this->getList();
 				}
@@ -15,6 +15,31 @@ class PagesApiRouteController extends ApiRouteController {
 				$this->setCode(400);
 				$this->respond(array('error' => 'Bad Request'));
 		}
+	}
+
+	private function getPage($ID) {
+		$view = PermissionKey::getByHandle('view_page'); //Get the fancy new "view_page" permission
+		$page = Page::getByID($ID); //get the super complicated page object
+		if(!is_object($page) || $page->isError()) { //lets check if this page exists...
+			$this->setCode(404); //NOPE time to 404!
+			$this->respond(array('error' => 'Page Not Found'));
+		}
+
+		$view->setPermissionObject($page);
+		$pa = $view->getPermissionAccessObject();
+		if(!is_object($pa)) { //IDK WTF this does, so lets just 404 because i don't know what it is!
+			$this->setCode(404);
+			$this->respond(array('error' => 'Page Not Found'));
+		}
+
+		$guest = Group::getByID(GUEST_GROUP_ID);
+		$accessEntities = array(GroupPermissionAccessEntity::getOrCreate($guest));
+		if (!$pa->validateAccessEntities($accessEntities)) { //STOP TRYING TO HACK US DAMMIT YOU ARN'T ALLOWED TO SEE THIS
+			$this->setCode(404);
+			$this->respond(array('error' => 'Page Not Found'));
+		}
+		return $this->cleanPage($page);
+
 	}
 
 	private function getList() {
@@ -80,13 +105,17 @@ class PagesApiRouteController extends ApiRouteController {
 		//$list = $pl->get(2, $offset);
 		$nlist = array();
 		foreach($list as $page) {
-			$vobj = $this->filterObject($page->vObj, array('cvHandle', 'cvName', 'cvDateCreated', 'cvDatePublic', 'cvAuthorUID', 'cvDescription'));
-			$pobj = $this->filterObject($page, array('cID', 'pkgID', 'cPath', 'cParentID'));
-			$nlist[] = $this->object_merge($vobj, $pobj);
+			$nlist[] = $this->cleanPage($page);
 		}
 		//print_r($nlist);
 		return $nlist;
 
+	}
+
+	private function cleanPage($page) {
+		$vobj = $this->filterObject($page->vObj, array('cvHandle', 'cvName', 'cvDateCreated', 'cvDatePublic', 'cvAuthorUID', 'cvDescription'));
+		$pobj = $this->filterObject($page, array('cID', 'pkgID', 'cPath', 'cParentID'));
+		return $this->object_merge($vobj, $pobj);
 	}
 
 }
