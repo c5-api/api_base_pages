@@ -113,9 +113,17 @@ class PagesApiRouteController extends ApiRouteController {
 	}
 
 	private function cleanPage($page) {
+		//$attributes = CollectionAttributeKey::getAttributes($page->cID, $page->vObj->cvID);
+		$attributes = CollectionAttributeKey::getList();
+		$natt = array();
+		foreach($attributes as $att) {
+			$val = $page->getAttribute($att->getAttributeKeyHandle());
+			$natt[$att->getAttributeKeyHandle()] = (string) $val;
+		}
+		$attr = array('attributes' => $natt);
 		$vobj = $this->filterObject($page->vObj, array('cvHandle', 'cvName', 'cvDateCreated', 'cvDatePublic', 'cvAuthorUID', 'cvDescription'));
 		$pobj = $this->filterObject($page, array('cID', 'pkgID', 'cPath', 'cParentID'));
-		return $this->object_merge($vobj, $pobj);
+		return $this->object_merge($vobj, $pobj, $attr);
 	}
 
 }
