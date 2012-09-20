@@ -3,36 +3,36 @@
 class ApiPagesRouteModel extends Object {
 	public static function populateList() {
 		$a = array();
-		$a['page'][t('Collection ID')] = 'cID';
-		$a['page'][t('Package ID')] = 'pkgID';
-		//$a['page'][] = 'cPointerID';
-		//$a['page'][] = 'cPointerExternalLink';
-		$a['page'][t('Active')] = 'cIsActive';
-		$a['page'][t('System Page')] = 'cIsSystemPage';
-		//$a['page'][] = 'cPointerExternalLinkNewWindow';
-		$a['page'][t('Singlepage Filename')] = 'cFilename';
-		$a['page'][t('Date Added')] = 'cDateAdded';
-		$a['page'][t('Display Order')] = 'cDisplayOrder';
-		$a['page'][t('Date Modified')] = 'cDateModified';
-		$a['page'][t('Creator User ID')] = 'uID';
-		$a['page'][t('Path')] = 'cPath';
-		$a['page'][t('Parent ID')] = 'cParentID';
-		$a['page'][t('Number of Children')] = 'cChildren';
+		$a['page']['cID'] = t('Collection ID');
+		$a['page']['pkgID'] = t('Package ID');
+		//$a['page']['cPointerID'] = 'cPointerID';
+		//$a['page']['cPointerExternalLink'] = 'cPointerExternalLink';
+		$a['page']['cIsActive'] = t('Active');
+		$a['page']['cIsSystemPage'] = t('System Page');
+		//$a['page']['cPointerExternalLinkNewWindow'] = 'cPointerExternalLinkNewWindow';
+		$a['page']['cFilename'] = t('Singlepage Filename');
+		$a['page']['cDateAdded'] = t('Date Added');
+		$a['page']['cDisplayOrder'] = t('Display Order');
+		$a['page']['cDateModified'] = t('Date Modified');
+		$a['page']['uID'] = t('Creator User ID');
+		$a['page']['cPath'] = t('Path');
+		$a['page']['cParentID'] = t('Parent ID');
+		$a['page']['cChildren'] = t('Number of Children');
 
-		$a['version'][t('Is Approved')] = 'cvIsApproved';
-		$a['version'][t('Collection Version ID')] = 'cvID';
-		//$a['version'][] = 'cvIsNew';
-		$a['version'][t('Handle')] = 'cvHandle';
-		$a['version'][t('Name')] = 'cvName';
-		$a['version'][t('Description')] = 'cvDescription';
-		$a['version'][t('Author User ID')] = 'cvAuthorUID';
-		$a['version'][t('Approver User ID')] = 'cvApproverUID';
-		$a['version'][t('Comments')] = 'cvComments';
-		$a['version'][t('Page Theme ID')] = 'ptID';
-		$a['version'][t('Collection Type ID')] = 'ctID';
-		$a['version'][t('Collection Type Handle')] = 'ctHandle';
-		$a['version'][t('Collection Type Name')] = 'ctName';
-		$a['version'][t('Is Most Recent Version')] = 'cvIsMostRecent';
+		$a['version']['cvIsApproved'] = t('Is Approved');
+		$a['version']['cvID'] = t('Collection Version ID');
+		//$a['version']['cvIsNew'] = 'cvIsNew';
+		$a['version']['cvHandle'] = t('Handle');
+		$a['version']['cvName'] = t('Name');
+		$a['version']['cvDescription'] = t('Description');
+		$a['version']['cvAuthorUID'] = t('Author User ID');
+		$a['version']['cvApproverUID'] = t('Approver User ID');
+		$a['version']['cvComments'] = t('Comments');
+		$a['version']['ptID'] = t('Page Theme ID');
+		$a['version']['ctID'] = t('Collection Type ID');
+		$a['version']['ctHandle'] = t('Collection Type Handle');
+		$a['version']['ctName'] = t('Collection Type Name');
+		$a['version']['cvIsMostRecent'] = t('Is Most Recent Version');
 
 		$a['attributes'] = self::populateAttributes();
 
@@ -42,7 +42,7 @@ class ApiPagesRouteModel extends Object {
 		$attributes = CollectionAttributeKey::getList();
 		$a = array();
 		foreach($attributes as $attr) {
-			$a[$attr->getAttributeKeyName()] = '_attribute_'.$attr->getAttributeKeyHandle();
+			$a['_attribute_'.$attr->getAttributeKeyHandle()] = $attr->getAttributeKeyName();
 		}
 		return $a;
 	}
