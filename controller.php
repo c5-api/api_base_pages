@@ -28,6 +28,8 @@ class ApiBasePagesPackage extends Package {
 		parent::install();
 
 		$pkg = Package::getByHandle($this->pkgHandle);
+		$p = SinglePage::add('/dashboard/api/settings/pages',$pkg);
+		$p->update(array('cName'=> '/pages'));
 		ApiRoute::add('pages', t('List pages and get information about different pages'), $pkg);
 	}
 	
