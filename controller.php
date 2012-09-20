@@ -17,6 +17,11 @@ class ApiBasePagesPackage extends Package {
 	public function on_start() {
 		Config::getAndDefine('C5_API_PAGES_LIMIT', 50);
 		Config::getAndDefine('C5_API_PAGES_LIMIT_DEFAULT', 10);
+
+		$classes = array();
+		$classes['ApiPagesRouteModel'] = array('model', 'api/route/pages', 'api_base_pages');
+
+		Loader::registerAutoload($classes);
 	}
 
 	public function install() {

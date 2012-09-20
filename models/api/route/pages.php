@@ -35,7 +35,7 @@ class ApiPagesRouteModel extends Object {
 		$a['version']['cvIsMostRecent'] = t('Is Most Recent Version');
 
 		$a['attributes'] = self::populateAttributes();
-
+		return $a;
 	}
 
 	public static function populateAttributes() {
