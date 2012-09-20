@@ -42,7 +42,7 @@ class ApiPagesRouteModel extends Object {
 		$attributes = CollectionAttributeKey::getList();
 		$a = array();
 		foreach($attributes as $attr) {
-			$a['_attribute_'.$attr->getAttributeKeyHandle()] = $attr->getAttributeKeyName();
+			$a[$attr->getAttributeKeyHandle()] = $attr->getAttributeKeyName();
 		}
 		return $a;
 	}

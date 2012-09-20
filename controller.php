@@ -35,6 +35,32 @@ class ApiBasePagesPackage extends Package {
 		$pkg = Package::getByHandle($this->pkgHandle);
 		$p = SinglePage::add('/dashboard/api/settings/pages',$pkg);
 		$p->update(array('cName'=> '/pages'));
+
+		$sel = array();
+		$sel['page'][] = 'cID';
+		$sel['page'][] = 'pkgID';
+		$sel['page'][] = 'cPath';
+		$sel['page'][] = 'cParentID';
+
+		$sel['version'][] = 'cvHandle';
+		$sel['version'][] = 'cvName';
+		$sel['version'][] = 'cvDateCreated';
+		$sel['version'][] = 'cvDatePublic';
+		$sel['version'][] = 'cvAuthorID';
+		$sel['version'][] = 'cvDescription';
+
+		$sel['attributes'][] = 'meta_title';
+		$sel['attributes'][] = 'meta_description';
+		$sel['attributes'][] = 'meta_keywords';
+		$sel['attributes'][] = 'tags';
+		$sel['attributes'][] = 'exclude_nav';
+		$sel['attributes'][] = 'exclude_search_index';
+		$sel['attributes'][] = 'exclude_sitemapxml';
+		$sel['attributes'][] = 'exclude_page_list';
+
+		ApiPagesRouteModel::saveSelected($sel);
+
+
 		ApiRoute::add('pages', t('List pages and get information about different pages'), $pkg);
 	}
 	

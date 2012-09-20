@@ -16,9 +16,11 @@ class DashboardApiSettingsPagesController extends DashboardBaseController {
 		}
 
 		$list = ApiPagesRouteModel::populateList();
+		$selected = ApiPagesRouteModel::getSelected();
 
 		$this->set('types', array_keys($list));
 		$this->set('list', $list);
+		$this->set('selected', $selected);
 
 	}
 

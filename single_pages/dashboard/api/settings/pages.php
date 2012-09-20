@@ -13,10 +13,16 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper('/pages
 			</thead>
 			<tbody>
 				<?php
-				foreach($list[$type] as $handle => $name) { ?>
+				foreach($list[$type] as $handle => $name) { 
+					if(in_array($handle, $selected[$type])) {
+						$checked = ' checked';
+					} else {
+						$checked = '';
+					}
+					?>
 					<tr>
 	                    <td width="60%"><?php echo $name?></td>
-	                    <td width="40%"><input type="checkbox" name="<?php echo $handle?>" value="1"/></td>
+	                    <td width="40%"><input type="checkbox" name="<?php echo $handle?>" value="1"<?php echo $checked?>/></td>
 	                </tr>
 				<?php
 				}
