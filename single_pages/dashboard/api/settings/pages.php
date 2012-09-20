@@ -2,12 +2,13 @@
 echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper('/pages', t('Manage settings for the /pages route'));
 	$ih = Loader::helper('concrete/interface');
 	$valt = Loader::helper('validation/token');
+	$txt = Loader::helper('text');
 
 	foreach($types as $type) { ?>
 		<table class="table" border="0" cellspacing="0" cellpadding="0" width="100%">
 			<thead>
 				<tr>
-					<th colspan="2"><?php echo $type?></th>
+					<th colspan="2"><?php echo $txt->unHandle($type)?></th>
 				</tr>
 			</thead>
 			<tbody>
