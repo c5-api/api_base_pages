@@ -24,5 +24,10 @@ class DashboardApiSettingsPagesController extends DashboardBaseController {
 
 	}
 
+	public function save() {
+		ApiPagesRouteModel::saveSelected($this->post());
+		$this->redirect('/dashboard/api/settings/pages', 'saved');
+	}
+
 
 }
