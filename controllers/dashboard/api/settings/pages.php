@@ -29,5 +29,4 @@ class DashboardApiSettingsPagesController extends DashboardBaseController {
 		$this->redirect('/dashboard/api/settings/pages', 'saved');
 	}
 
-
 }

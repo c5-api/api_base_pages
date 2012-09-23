@@ -119,16 +119,20 @@ class PagesApiRouteController extends ApiRouteController {
 	}
 
 	private function cleanPage($page) {
-		//$attributes = CollectionAttributeKey::getAttributes($page->cID, $page->vObj->cvID);
+		$active = ApiPagesRouteModel::getSelected();
+
 		$attributes = CollectionAttributeKey::getList();
 		$natt = array();
 		foreach($attributes as $att) {
-			$val = $page->getAttribute($att->getAttributeKeyHandle());
-			$natt[$att->getAttributeKeyHandle()] = (string) $val;
+			if(in_array($att->getAttributeKeyHandle(), $active['attributes'])) {
+				$val = $page->getAttribute($att->getAttributeKeyHandle());
+				$natt[$att->getAttributeKeyHandle()] = (string) $val;
+			}
 		}
+		$vobj = $this->filterObject($page->vObj, $active['version']);
+		$pobj = $this->filterObject($page, $active['page']);
 		$attr = array('attributes' => $natt);
-		$vobj = $this->filterObject($page->vObj, array('cvHandle', 'cvName', 'cvDateCreated', 'cvDatePublic', 'cvAuthorUID', 'cvDescription'));
-		$pobj = $this->filterObject($page, array('cID', 'pkgID', 'cPath', 'cParentID'));
+
 		return $this->object_merge($vobj, $pobj, $attr);
 	}
 
