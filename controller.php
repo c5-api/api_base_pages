@@ -25,6 +25,7 @@ class ApiBasePagesPackage extends Package {
 	}
 
 	public function install() {
+		$this->on_start();
 		$installed = Package::getByHandle('api');
 		if(!is_object($installed)) {
 			throw new Exception(t('Please install the "API" package before installing %s', $this->getPackageName()));
