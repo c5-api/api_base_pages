@@ -18,8 +18,8 @@ class PagesApiRouteController extends ApiRouteController {
 				}
 			
 			default: //BAD REQUEST
-				$this->setCode(400);
-				$this->respond(array('error' => 'Bad Request'));
+				$this->setCode(405);
+				$this->respond(array('error' => 'Method Not Allowed'));
 		}
 	}
 
