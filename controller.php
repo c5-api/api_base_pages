@@ -60,6 +60,8 @@ class ApiBasePagesPackage extends Package {
 
 		ApiPagesRouteModel::saveSelected($sel);
 
+		ApiPagesRouteModel::saveType();//whitelist
+
 
 		ApiRoute::add('pages', t('List pages and get information about different pages'), $pkg);
 	}
