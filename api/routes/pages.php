@@ -123,10 +123,12 @@ class PagesApiRouteController extends ApiRouteController {
 
 		$attributes = CollectionAttributeKey::getList();
 		$natt = array();
-		foreach($attributes as $att) {
-			if(in_array($att->getAttributeKeyHandle(), $active['attributes'])) {
-				$val = $page->getAttribute($att->getAttributeKeyHandle());
-				$natt[$att->getAttributeKeyHandle()] = (string) $val;
+		if(is_array($active['attributes']) && count($active['attributes']) > 0) {
+			foreach($attributes as $att) {
+				if(in_array($att->getAttributeKeyHandle(), $active['attributes'])) {
+					$val = $page->getAttribute($att->getAttributeKeyHandle());
+					$natt[$att->getAttributeKeyHandle()] = (string) $val;
+				}
 			}
 		}
 		$vobj = $this->filterObject($page->vObj, $active['version']);

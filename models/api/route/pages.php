@@ -54,6 +54,12 @@ class ApiPagesRouteModel extends Object {
 	}
 
 	public static function saveSelected($conf) {
+		if(!isset($conf['page'])) {
+			$conf['page'] = array();
+		}
+		if(!isset($conf['version'])) {
+			$conf['version'] = array();
+		}
 		$ser = serialize($conf);
 		$pkg = Package::getByHandle('api_base_pages');
 		$pkg->saveConfig('SELECTED', $ser);
